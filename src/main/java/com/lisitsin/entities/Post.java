@@ -10,20 +10,19 @@ public class Post {
     private Date updated;
     private List<Label> labels;
 
-    public Post(long id, String content, Date created, Date updated, List<Label> labels) {
-        this.id = id;
+    public Post(String content, Date created, Date updated, List<Label> labels) {
         this.content = content;
         this.created = created;
         this.updated = updated;
         this.labels = labels;
     }
 
-    public long getId() {
-        return id;
+    public void setId(long id){
+        this.id = id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getId() {
+        return id;
     }
 
     public String getContent() {

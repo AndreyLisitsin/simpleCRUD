@@ -16,35 +16,35 @@ public class JsonWriterRepositoryImpl implements WriterRepository {
 
     private final String path = "src/main/resources/rep/writer.json";
     private List<Writer> list = new ArrayList<>();
-    public JsonWriterRepositoryImpl(){
-        updateWritersList();
-    }
-
 
     @Override
     public Writer getById(Long id) {
+        readListFromJson();
         return list.stream().filter(w ->w.getId()== id).findAny().get();
     }
 
     @Override
     public List<Writer> getAll() {
+        readListFromJson();
         return list;
     }
 
     @Override
     public Writer save(Writer writer) {
+        readListFromJson();
         writer.setId(list.stream()
                 .map(Writer::getId)
                 .max((Comparator.naturalOrder()))
                 .get()
                 .intValue()+1);
         list.add(writer);
-        saveWritersList(list);
+        writeListToJson(list);
         return writer;
     }
 
     @Override
     public Writer update(Writer writer) {
+        readListFromJson();
         for (Writer writer1 : list) {
             if (writer.getId() == writer1.getId()){
                 if (writer.getFirstName().equals(writer1.getFirstName())){
@@ -54,30 +54,30 @@ public class JsonWriterRepositoryImpl implements WriterRepository {
                     writer1.setFirstName(writer.getFirstName());
             }
         }
-        saveWritersList(list);
+        writeListToJson(list);
         return writer;
     }
 
     @Override
     public void deleteById(Long id) {
-        List<Writer> writers = getAll();
-        list = writers.stream().filter(w -> w.getId() != id).collect(Collectors.toList());
-        saveWritersList(list);
+        readListFromJson();
+        List<Writer> newList = list.stream().filter(w -> w.getId() != id).collect(Collectors.toList());
+        writeListToJson(newList);
     }
 
-    private void saveWritersList(List<Writer> list) {
+    private void writeListToJson(List<Writer> list) {
         try(PrintWriter out = new PrintWriter(new FileWriter(path))){
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
                     .create();
-            String jsonWriter = gson.toJson(list);
-            out.write(jsonWriter);
+            String jsonWriters = gson.toJson(list);
+            out.write(jsonWriters);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void updateWritersList() {
+    private void readListFromJson() {
         StringBuilder builder = new StringBuilder();
         String s ="";
         Gson gson = new Gson();

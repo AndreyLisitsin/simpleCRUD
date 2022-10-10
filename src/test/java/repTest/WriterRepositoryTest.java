@@ -21,7 +21,7 @@ public class WriterRepositoryTest {
 
     @Test
     void saveWriter(){
-        writerRepository.save(new Writer( "Roman", "Goncharenko", List.of(new Post(6,"Another content",new Date(), new Date(), List.of(new Label(7,"Movie"))))));
+        writerRepository.save(new Writer( "Roman", "Goncharenko", List.of(new Post("Another content",new Date(), new Date(), List.of(new Label("Movie"))))));
     }
 
     @Test

@@ -4,8 +4,7 @@ public class Label {
     private long id;
     private String name;
 
-    public Label(long id, String name) {
-        this.id = id;
+    public Label(String name) {
         this.name = name;
     }
 

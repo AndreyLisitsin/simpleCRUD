@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WriterView {
-    private final Scanner scanner;
+    private Scanner scanner;
     private WriterController writerController;
 
 
@@ -47,6 +47,7 @@ public class WriterView {
     public void addWriter(){
         String firstName;
         String lastName;
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Введите имя:");
             firstName = scanner.nextLine().trim();
@@ -83,26 +84,25 @@ public class WriterView {
         System.out.println("what field would your prefer to update?\n" +
                 "1 - firstName\n" +
                 "2 - lastName");
-        while (true) {
             int i = scanner.nextInt();
-            scanner.reset();
             if (i == 1) {
                 System.out.println("Enter new Firstname:");
-                String firstName = scanner.nextLine();
+                String firstName = new Scanner(System.in).nextLine();
                 writer.setFirstName(firstName);
                 writerController.modifyWriter(writer);
-                break;
             }
             if (i == 2) {
                 System.out.println("Enter new Lastname:");
-                String lastName = scanner.nextLine();
+                String lastName = new Scanner(System.in).nextLine();
                 writer.setLastName(lastName);
                 writerController.modifyWriter(writer);
-                break;
+
             }
-        else
-            System.out.println("Incorrect input data");
-        }
+            else
+                System.out.println("Incorrect input data");
+
+        System.out.println(writer);
+
         return writer;
     }
 
