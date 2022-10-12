@@ -8,8 +8,7 @@ import java.util.List;
 
 public class LabelController {
 
-    private LabelRepository labelRepository;
-
+    private final LabelRepository labelRepository;
 
     public LabelController(){
         labelRepository = new JsonLabelRepositoryImpl();

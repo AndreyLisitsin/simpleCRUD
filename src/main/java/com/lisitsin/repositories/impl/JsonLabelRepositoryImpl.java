@@ -17,7 +17,10 @@ import java.util.stream.Collectors;
 public class JsonLabelRepositoryImpl implements LabelRepository {
 
     private final String PATH = "src/main/resources/rep/label.json";
-    List<Label> labels = new ArrayList<>();
+    List<Label> labels;
+    public JsonLabelRepositoryImpl(){
+        labels = new ArrayList<>();
+    }
     @Override
     public Label getById(Long id) {
         readListFromJson();
@@ -33,11 +36,15 @@ public class JsonLabelRepositoryImpl implements LabelRepository {
     @Override
     public Label save(Label label) {
         readListFromJson();
-        label.setId(labels.stream()
-                .map(Label::getId)
-                .max((Comparator.naturalOrder()))
-                .get()
-                .intValue()+1);
+        if (labels.size() == 0){
+            label.setId(1);
+        }
+        else
+            label.setId(labels.stream()
+                    .map(Label::getId)
+                    .max((Comparator.naturalOrder()))
+                    .get()
+                    .intValue()+1);
         labels.add(label);
         writeListToJson(labels);
         return label;
@@ -84,7 +91,9 @@ public class JsonLabelRepositoryImpl implements LabelRepository {
                 builder.append(s).append("\n");
             }
             Type type = new TypeToken<List<Label>>(){}.getType();
-            labels = gson.fromJson(builder.toString(), type);
+            if (builder.length() != 0) {
+                labels = gson.fromJson(builder.toString(), type);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

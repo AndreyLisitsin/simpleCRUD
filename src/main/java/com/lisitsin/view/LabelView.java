@@ -44,7 +44,7 @@ public class LabelView {
 
     private void addLabel() {
         System.out.println("Enter the labelName");
-        String labelName = scanner.nextLine();
+        String labelName = new Scanner(System.in).nextLine();
         System.out.println("Label successfully saved: " + labelController.save(labelName));
     }
 

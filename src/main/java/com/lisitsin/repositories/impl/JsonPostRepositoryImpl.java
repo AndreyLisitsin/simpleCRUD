@@ -35,11 +35,15 @@ public class JsonPostRepositoryImpl implements PostRepository {
     @Override
     public Post save(Post post) {
         readListFromJson();
-        post.setId(posts.stream()
-                .map(Post::getId)
-                .max((Comparator.naturalOrder()))
-                .get()
-                .intValue()+1);
+        if (posts.size() == 0){
+            post.setId(1);
+        }
+        else
+            post.setId(posts.stream()
+                    .map(Post::getId)
+                    .max((Comparator.naturalOrder()))
+                    .get()
+                    .intValue()+1);
         posts.add(post);
         writeListToJson(posts);
         return post;
@@ -88,7 +92,9 @@ public class JsonPostRepositoryImpl implements PostRepository {
                 builder.append(s).append("\n");
             }
             Type type = new TypeToken<List<Post>>(){}.getType();
-            posts = gson.fromJson(builder.toString(), type);
+            if (builder.length() != 0) {
+                posts = gson.fromJson(builder.toString(), type);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

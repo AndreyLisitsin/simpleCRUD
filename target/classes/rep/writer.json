@@ -1,26 +1,7 @@
 [
   {
-    "id": 1,
-    "FirstName": "Misha",
-    "LastName": "Zuev",
-    "posts": [
-      {
-        "id": 1,
-        "content": "First post",
-        "created": "Oct 8, 2022, 10:46:40 AM",
-        "updated": "Oct 8, 2022, 10:46:40 AM",
-        "labels": [
-          {
-            "id": 1,
-            "name": "Title"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": 2,
-    "FirstName": "Andrey",
+    "FirstName": "Roman",
     "LastName": "Lisitsin",
     "posts": [
       {

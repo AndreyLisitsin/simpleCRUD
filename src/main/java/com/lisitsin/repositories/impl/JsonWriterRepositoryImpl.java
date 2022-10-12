@@ -32,11 +32,15 @@ public class JsonWriterRepositoryImpl implements WriterRepository {
     @Override
     public Writer save(Writer writer) {
         readListFromJson();
-        writer.setId(list.stream()
-                .map(Writer::getId)
-                .max((Comparator.naturalOrder()))
-                .get()
-                .intValue()+1);
+        if (list.size() == 0){
+            writer.setId(1);
+        }
+        else
+            writer.setId(list.stream()
+                    .map(Writer::getId)
+                    .max((Comparator.naturalOrder()))
+                    .get()
+                    .intValue()+1);
         list.add(writer);
         writeListToJson(list);
         return writer;
@@ -46,12 +50,10 @@ public class JsonWriterRepositoryImpl implements WriterRepository {
     public Writer update(Writer writer) {
         readListFromJson();
         for (Writer writer1 : list) {
-            if (writer.getId() == writer1.getId()){
-                if (writer.getFirstName().equals(writer1.getFirstName())){
-                    writer1.setLastName(writer.getLastName());
-                }
-                else
-                    writer1.setFirstName(writer.getFirstName());
+            if (writer.getId() == writer1.getId()) {
+                writer1.setLastName(writer.getLastName());
+                writer1.setFirstName(writer.getFirstName());
+                writer1.setPosts(writer.getPosts());
             }
         }
         writeListToJson(list);
@@ -87,7 +89,9 @@ public class JsonWriterRepositoryImpl implements WriterRepository {
                 builder.append(s).append("\n");
             }
             Type type = new TypeToken<List<Writer>>(){}.getType();
-            list = gson.fromJson(builder.toString(), type);
+            if (builder.length() != 0) {
+                list = gson.fromJson(builder.toString(), type);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

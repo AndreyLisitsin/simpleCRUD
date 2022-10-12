@@ -9,11 +9,9 @@ import java.util.Scanner;
 
 public class WriterController {
 
-    private Scanner scanner;
     WriterRepository writerRepository;
 
     public WriterController(){
-        scanner = new Scanner(System.in);
         writerRepository = new JsonWriterRepositoryImpl();
     }
 

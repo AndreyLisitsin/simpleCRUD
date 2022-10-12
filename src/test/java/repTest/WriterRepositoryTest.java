@@ -1,5 +1,6 @@
 package repTest;
 
+import com.lisitsin.cotrollers.PostController;
 import com.lisitsin.entities.Label;
 import com.lisitsin.entities.Post;
 import com.lisitsin.entities.Writer;
@@ -13,11 +14,7 @@ import java.util.List;
 public class WriterRepositoryTest {
 
     WriterRepository writerRepository = new JsonWriterRepositoryImpl();
-
-    @Test
-    void read(){
-        writerRepository.getAll();
-    }
+    PostController postController = new PostController();
 
     @Test
     void saveWriter(){
@@ -25,7 +22,22 @@ public class WriterRepositoryTest {
     }
 
     @Test
+    void gatAll(){
+        writerRepository.getAll();
+    }
+
+    @Test
     void getWriterById(){
         writerRepository.getById(1L);
+    }
+    @Test
+    void update(){
+        Writer writer = new Writer("Roman","Ershov", postController.getPosts());
+        writer.setId(2L);
+        System.out.println(writerRepository.update(writer));
+    }
+    @Test
+    void delete(){
+        writerRepository.deleteById(1L);
     }
 }

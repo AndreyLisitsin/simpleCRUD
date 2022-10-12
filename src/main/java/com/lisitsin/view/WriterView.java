@@ -53,8 +53,10 @@ public class WriterView {
             firstName = scanner.nextLine().trim();
             System.out.println("Введите фамилию:");
             lastName = scanner.nextLine().trim();
-            if (!firstName.isEmpty() || !lastName.isEmpty())
+            if (!firstName.isEmpty() || !lastName.isEmpty()) {
+                System.out.println("Поля Имя и Фамилия не могут быть пустыми");
                 break;
+            }
         }
         Writer writer = new Writer(firstName,lastName);
         writerController.addWriter(writer);
