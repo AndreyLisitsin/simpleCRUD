@@ -2,7 +2,7 @@ package com.lisitsin.cotrollers;
 
 import com.lisitsin.entities.Label;
 import com.lisitsin.repositories.LabelRepository;
-import com.lisitsin.repositories.impl.JsonLabelRepositoryImpl;
+import com.lisitsin.repositories.impl.jsonImpl.JsonLabelRepositoryImpl;
 
 import java.util.List;
 

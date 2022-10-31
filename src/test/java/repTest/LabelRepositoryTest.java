@@ -2,10 +2,8 @@ package repTest;
 
 import com.lisitsin.entities.Label;
 import com.lisitsin.repositories.LabelRepository;
-import com.lisitsin.repositories.impl.JsonLabelRepositoryImpl;
+import com.lisitsin.repositories.impl.jsonImpl.JsonLabelRepositoryImpl;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Field;
 
 public class LabelRepositoryTest {
 

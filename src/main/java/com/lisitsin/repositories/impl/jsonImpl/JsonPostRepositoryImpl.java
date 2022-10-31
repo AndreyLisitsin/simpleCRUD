@@ -1,4 +1,4 @@
-package com.lisitsin.repositories.impl;
+package com.lisitsin.repositories.impl.jsonImpl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

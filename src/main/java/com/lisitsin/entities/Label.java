@@ -7,6 +7,10 @@ public class Label {
     public Label(String name) {
         this.name = name;
     }
+    public Label(long id, String name){
+        this.id = id;
+        this.name = name;
+    }
 
     public long getId() {
         return id;

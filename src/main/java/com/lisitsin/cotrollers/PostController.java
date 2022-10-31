@@ -3,7 +3,7 @@ package com.lisitsin.cotrollers;
 import com.lisitsin.entities.Label;
 import com.lisitsin.entities.Post;
 import com.lisitsin.repositories.PostRepository;
-import com.lisitsin.repositories.impl.JsonPostRepositoryImpl;
+import com.lisitsin.repositories.impl.jsonImpl.JsonPostRepositoryImpl;
 
 import java.util.Date;
 import java.util.List;

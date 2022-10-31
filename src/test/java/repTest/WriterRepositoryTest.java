@@ -5,7 +5,7 @@ import com.lisitsin.entities.Label;
 import com.lisitsin.entities.Post;
 import com.lisitsin.entities.Writer;
 import com.lisitsin.repositories.WriterRepository;
-import com.lisitsin.repositories.impl.JsonWriterRepositoryImpl;
+import com.lisitsin.repositories.impl.jsonImpl.JsonWriterRepositoryImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;

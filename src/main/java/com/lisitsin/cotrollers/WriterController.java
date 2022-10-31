@@ -2,10 +2,9 @@ package com.lisitsin.cotrollers;
 
 import com.lisitsin.entities.Writer;
 import com.lisitsin.repositories.WriterRepository;
-import com.lisitsin.repositories.impl.JsonWriterRepositoryImpl;
+import com.lisitsin.repositories.impl.jsonImpl.JsonWriterRepositoryImpl;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class WriterController {
 
