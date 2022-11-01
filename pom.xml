@@ -14,6 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+
+
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -44,9 +46,34 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>4.15.0</version>
+            <version>4.17.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-maven-plugin -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <version>4.17.1</version>
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.17.1</version>
+                <configuration>
+                    <changeLogFile>src/main/resources/db.changelog/db.changelog-master.xml</changeLogFile>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                    <url>jdbc:mysql://localhost:3306/socialweb</url>
+                    <username>root</username>
+                    <password>Lisitsin031095</password>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
 
 </project>
