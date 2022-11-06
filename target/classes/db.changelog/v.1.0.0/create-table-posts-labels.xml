@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-table-posts-labels" author="Andrey">
+        <createTable tableName="posts_labels">
+            <column name="post_id" type="int" >
+                <constraints nullable="false" foreignKeyName="post_id" references="post(id)"/>
+            </column>
+            <column name="label_id" type="int" >
+                <constraints nullable="false" foreignKeyName="label_id" references="label(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

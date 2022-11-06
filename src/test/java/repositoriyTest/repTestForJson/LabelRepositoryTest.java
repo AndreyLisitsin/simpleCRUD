@@ -1,4 +1,4 @@
-package repTest;
+package repositoriyTest.repTestForJson;
 
 import com.lisitsin.entities.Label;
 import com.lisitsin.repositories.LabelRepository;

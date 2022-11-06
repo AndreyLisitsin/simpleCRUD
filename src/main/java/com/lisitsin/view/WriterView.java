@@ -10,8 +10,7 @@ public class WriterView {
     private Scanner scanner;
     private WriterController writerController;
 
-
-    public WriterView(){
+/*    public WriterView(){
         writerController = new WriterController();
         scanner = new Scanner(System.in);
 
@@ -112,5 +111,5 @@ public class WriterView {
         System.out.println("Enter writer`s id:");
         long id = scanner.nextLong();
         writerController.deleteWriter(id);
-    }
+    }*/
 }

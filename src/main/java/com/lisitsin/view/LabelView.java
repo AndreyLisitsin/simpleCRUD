@@ -10,7 +10,7 @@ public class LabelView {
     private LabelController labelController;
     private Scanner scanner;
 
-    public LabelView(){
+/*    public LabelView(){
         labelController = new LabelController();
         scanner = new Scanner(System.in);
     }
@@ -73,6 +73,6 @@ public class LabelView {
         long id = scanner.nextLong();
         labelController.deleteLabel(id);
         System.out.println("Post successfully deleted");
-    }
+    }*/
 }
 

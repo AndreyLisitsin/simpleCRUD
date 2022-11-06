@@ -4,19 +4,18 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="create-table-label" author="Andrey">
-        <createTable tableName="label">
+    <changeSet id="create-table-writer" author="Andrey">
+        <createTable tableName="writer">
             <column name="id" type="int" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="label_name" type="varchar(64)">
-                <constraints unique="true" nullable="false"/>
+            <column name="first_name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(64)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet id="refactoring-type-of-id" author="Andrey">
-        <modifyDataType tableName="label" columnName="id" newDataType="bigint"/>
     </changeSet>
 
 </databaseChangeLog>

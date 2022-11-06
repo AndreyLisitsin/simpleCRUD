@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MySQLLabelRepository implements LabelRepository {
 
     @SneakyThrows
@@ -55,7 +54,7 @@ public class MySQLLabelRepository implements LabelRepository {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, labelName);
-        statement.execute();
+        statement.executeUpdate();
         return label;
     }
 
@@ -77,6 +76,6 @@ public class MySQLLabelRepository implements LabelRepository {
         String SQL = "DELETE FROM labels WHERE id = " + id;
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
         Statement statement = connection.createStatement();
-        statement.execute(SQL);
+        statement.executeUpdate(SQL);
     }
 }

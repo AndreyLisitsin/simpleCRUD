@@ -4,37 +4,39 @@ import com.lisitsin.entities.Label;
 import com.lisitsin.entities.Post;
 import com.lisitsin.repositories.PostRepository;
 import com.lisitsin.repositories.impl.jsonImpl.JsonPostRepositoryImpl;
+import com.lisitsin.services.PostService;
+import com.lisitsin.services.impl.PostServiceImpl;
 
 import java.util.Date;
 import java.util.List;
 
 public class PostController {
 
-    private final PostRepository postRepository;
+    private final PostService postService;
     
     public PostController(){
-        postRepository = new JsonPostRepositoryImpl();
+        postService = new PostServiceImpl();
     }
     
     public Post savePost(String content, List<Label> labels) {
         Post post = new Post(content, new Date(), new Date(), labels);
-        postRepository.save(post);
+        postService.save(post);
         return post;
     }
 
     public List<Post> getPosts() {
-        return postRepository.getAll();
+        return postService.getAll();
     }
 
     public Post getPostById(long id) {
-        return postRepository.getById(id);
+        return postService.getById(id);
     }
 
     public Post update(Post post) {
-        return postRepository.update(post);
+        return postService.update(post);
     }
 
     public void delete(long id) {
-        postRepository.deleteById(id);
+        postService.deleteById(id);
     }
 }

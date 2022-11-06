@@ -1,4 +1,4 @@
-package repTest;
+package repositoriyTest.repTestForJson;
 
 import com.lisitsin.cotrollers.PostController;
 import com.lisitsin.entities.Label;

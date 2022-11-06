@@ -14,7 +14,7 @@ public class PostView {
     private Scanner scanner;
     private PostController postController;
     private LabelController labelController;
-    public PostView(){
+/*    public PostView(){
         scanner = new Scanner(System.in);
         postController = new PostController();
         labelController = new LabelController();
@@ -127,5 +127,5 @@ public class PostView {
         int id = scanner.nextInt();
         postController.delete(id);
         System.out.println("Post successfully deleted");
-    }
+    }*/
 }
