@@ -1,7 +1,8 @@
 package com.lisitsin.repositories.impl.mySqlImpl;
 
-import com.lisitsin.entities.Label;
-import com.lisitsin.entities.Post;
+import com.lisitsin.CreateConnection;
+import com.lisitsin.models.Label;
+import com.lisitsin.models.Post;
 import com.lisitsin.repositories.PostRepository;
 import lombok.SneakyThrows;
 
@@ -13,16 +14,11 @@ public class MySQlPostRepository implements PostRepository {
 
     MySQLPostAndLabelsRepository postAndLabelsRepository = new MySQLPostAndLabelsRepository();
 
-    @SneakyThrows
-    public MySQlPostRepository(){
-        Class.forName("com.mysql.jdbc.Driver");
-    }
-
     @Override
     @SneakyThrows
     public Post getById(Long id) {
         String SQL = "SELECT * FROM POST WHERE id = ?";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery(SQL);
@@ -40,7 +36,7 @@ public class MySQlPostRepository implements PostRepository {
     public List<Post> getAll() {
         List<Post> posts = new ArrayList<>();
         String SQL = "SELECT * FROM labels ";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
@@ -59,7 +55,7 @@ public class MySQlPostRepository implements PostRepository {
     @SneakyThrows
     public Post save(Post post) {
         String SQL  = "INSERT INTO post (content, created, updated, writer_id) VALUES (?, ?, ?, ?)";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, post.getContent());
         statement.setDate(2, (Date) post.getCreated());
@@ -73,7 +69,7 @@ public class MySQlPostRepository implements PostRepository {
     @SneakyThrows
     public Post update(Post post) {
         String SQL = "UPDATE post SET content = ?, updated = ? WHERE id = ?";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, post.getContent());
         statement.setDate(2,(Date) post.getUpdated());
@@ -86,7 +82,7 @@ public class MySQlPostRepository implements PostRepository {
     @SneakyThrows
     public void deleteById(Long id) {
         String SQL = "DELETE FROM post WHERE id =?";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);
         statement.executeUpdate();

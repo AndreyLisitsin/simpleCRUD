@@ -1,6 +1,7 @@
 package com.lisitsin.repositories.impl.mySqlImpl;
 
-import com.lisitsin.entities.Label;
+import com.lisitsin.CreateConnection;
+import com.lisitsin.models.Label;
 import com.lisitsin.repositories.LabelRepository;
 import lombok.SneakyThrows;
 
@@ -10,16 +11,11 @@ import java.util.List;
 
 public class MySQLLabelRepository implements LabelRepository {
 
-    @SneakyThrows
-    public MySQLLabelRepository(){
-            Class.forName("com.mysql.jdbc.Driver");
-    }
-
     @Override
     @SneakyThrows
     public Label getById(Long id) {
         String SQL = "SELECT * FROM label where id = ?";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery(SQL);
@@ -35,7 +31,7 @@ public class MySQLLabelRepository implements LabelRepository {
         String SQL = "SELECT * FROM label";
         long labelId;
         String labelName;
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL);
             while (resultSet.next()){
@@ -51,7 +47,7 @@ public class MySQLLabelRepository implements LabelRepository {
     public Label save(Label label) {
         String labelName = label.getName();
         String SQL = "INSERT INTO label (name) VALUES (?)";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, labelName);
         statement.executeUpdate();
@@ -62,7 +58,7 @@ public class MySQLLabelRepository implements LabelRepository {
     @SneakyThrows
     public Label update(Label label) {
         String SQL = "UPDATE labels SET name = ? WHERE id = ?";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, label.getName());
         statement.setLong(2, label.getId());
@@ -74,7 +70,7 @@ public class MySQLLabelRepository implements LabelRepository {
     @SneakyThrows
     public void deleteById(Long id) {
         String SQL = "DELETE FROM labels WHERE id = " + id;
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         Statement statement = connection.createStatement();
         statement.executeUpdate(SQL);
     }

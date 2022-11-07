@@ -1,7 +1,9 @@
 package com.lisitsin.view;
 
 import com.lisitsin.cotrollers.WriterController;
-import com.lisitsin.entities.Writer;
+import com.lisitsin.models.Writer;
+import com.lisitsin.repositories.impl.mySqlImpl.MySQLWriterRepository;
+import com.lisitsin.services.impl.WriterServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,8 +12,8 @@ public class WriterView {
     private Scanner scanner;
     private WriterController writerController;
 
-/*    public WriterView(){
-        writerController = new WriterController();
+    public WriterView(){
+        writerController = new WriterController(new WriterServiceImpl(new MySQLWriterRepository()));
         scanner = new Scanner(System.in);
 
     }
@@ -111,5 +113,5 @@ public class WriterView {
         System.out.println("Enter writer`s id:");
         long id = scanner.nextLong();
         writerController.deleteWriter(id);
-    }*/
+    }
 }

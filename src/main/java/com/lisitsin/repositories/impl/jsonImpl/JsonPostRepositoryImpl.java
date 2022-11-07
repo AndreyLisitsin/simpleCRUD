@@ -3,8 +3,7 @@ package com.lisitsin.repositories.impl.jsonImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.lisitsin.entities.Post;
-import com.lisitsin.entities.Writer;
+import com.lisitsin.models.Post;
 import com.lisitsin.repositories.PostRepository;
 
 import java.io.*;
@@ -36,14 +35,14 @@ public class JsonPostRepositoryImpl implements PostRepository {
     public Post save(Post post) {
         readListFromJson();
         if (posts.size() == 0){
-            post.setId(1);
+            post.setId(1L);
         }
         else
             post.setId(posts.stream()
                     .map(Post::getId)
                     .max((Comparator.naturalOrder()))
                     .get()
-                    .intValue()+1);
+                    .intValue()+1L);
         posts.add(post);
         writeListToJson(posts);
         return post;

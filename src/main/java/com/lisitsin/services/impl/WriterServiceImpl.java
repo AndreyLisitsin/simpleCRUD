@@ -1,8 +1,7 @@
 package com.lisitsin.services.impl;
 
-import com.lisitsin.entities.Writer;
+import com.lisitsin.models.Writer;
 import com.lisitsin.repositories.WriterRepository;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQLWriterRepository;
 import com.lisitsin.services.WriterService;
 
 import java.util.List;

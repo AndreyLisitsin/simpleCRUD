@@ -1,8 +1,6 @@
 package com.lisitsin.services;
 
-import com.lisitsin.entities.Label;
-
-import java.util.List;
+import com.lisitsin.models.Label;
 
 public interface LabelService extends GenericService<Label, Long> {
 

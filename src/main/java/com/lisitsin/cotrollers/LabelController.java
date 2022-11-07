@@ -1,11 +1,7 @@
 package com.lisitsin.cotrollers;
 
-import com.lisitsin.entities.Label;
-import com.lisitsin.repositories.LabelRepository;
-import com.lisitsin.repositories.impl.jsonImpl.JsonLabelRepositoryImpl;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
+import com.lisitsin.models.Label;
 import com.lisitsin.services.LabelService;
-import com.lisitsin.services.impl.LabelServiceImpl;
 
 import java.util.List;
 
@@ -13,8 +9,8 @@ public class LabelController {
 
     private final LabelService labelService;
 
-    public LabelController(){
-        labelService = new LabelServiceImpl(new MySQLLabelRepository());
+    public LabelController(LabelService labelService){
+        this.labelService = labelService ;
     }
 
     public Label save(String labelName){

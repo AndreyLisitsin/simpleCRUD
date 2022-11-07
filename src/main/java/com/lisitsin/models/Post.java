@@ -1,11 +1,11 @@
-package com.lisitsin.entities;
+package com.lisitsin.models;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class Post {
-    private long id;
+    private Long id;
     private String content;
     private Date created;
     private Date updated;
@@ -13,7 +13,7 @@ public class Post {
 
     private long writerId;
 
-    public Post(long id, String content, Date created, Date updated, List<Label> labels, long writerId) {
+    public Post(Long id, String content, Date created, Date updated, List<Label> labels, long writerId) {
         this.id = id;
         this.content = content;
         this.created = created;
@@ -34,7 +34,7 @@ public class Post {
         this.updated = new Date();
     }
 
-    public Post(long id, String content, Date created, Date updated, List<Label> labels) {
+    public Post(Long id, String content, Date created, Date updated, List<Label> labels) {
         this.id = id;
         this.content = content;
         this.created = created;
@@ -42,7 +42,7 @@ public class Post {
         this.labels = labels;
     }
 
-    public void setId(long id){
+    public void setId(Long id){
         this.id = id;
     }
 

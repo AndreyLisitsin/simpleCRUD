@@ -1,11 +1,10 @@
 package com.lisitsin.repositories.impl.mySqlImpl;
 
-import com.lisitsin.entities.Label;
-import com.lisitsin.entities.Post;
+import com.lisitsin.CreateConnection;
+import com.lisitsin.models.Label;
 import lombok.SneakyThrows;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ public class MySQLPostAndLabelsRepository {
 
     @SneakyThrows
     public MySQLPostAndLabelsRepository() {
-        Class.forName("com.mysql.jdbc.Driver");
         postRepository =  new MySQlPostRepository();
         labelRepository = new MySQLLabelRepository();
     }
@@ -27,7 +25,7 @@ public class MySQLPostAndLabelsRepository {
     List<Label> getLabelsByPostID(Long postId){
         List<Label> labels = new ArrayList<>();
         String SQL = "SELECT label_id FROM posts_labels WHERE post_id = ?";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/socialweb", "****", "****");
+        Connection connection = CreateConnection.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, postId);
         ResultSet resultSet = statement.executeQuery();

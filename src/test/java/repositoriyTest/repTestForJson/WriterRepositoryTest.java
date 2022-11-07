@@ -1,11 +1,13 @@
 package repositoriyTest.repTestForJson;
 
 import com.lisitsin.cotrollers.PostController;
-import com.lisitsin.entities.Label;
-import com.lisitsin.entities.Post;
-import com.lisitsin.entities.Writer;
+import com.lisitsin.models.Label;
+import com.lisitsin.models.Post;
+import com.lisitsin.models.Writer;
 import com.lisitsin.repositories.WriterRepository;
+import com.lisitsin.repositories.impl.jsonImpl.JsonPostRepositoryImpl;
 import com.lisitsin.repositories.impl.jsonImpl.JsonWriterRepositoryImpl;
+import com.lisitsin.services.impl.PostServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -14,7 +16,7 @@ import java.util.List;
 public class WriterRepositoryTest {
 
     WriterRepository writerRepository = new JsonWriterRepositoryImpl();
-    PostController postController = new PostController();
+    PostController postController = new PostController(new PostServiceImpl(new JsonPostRepositoryImpl()));
 
     @Test
     void saveWriter(){

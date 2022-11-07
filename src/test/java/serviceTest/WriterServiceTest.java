@@ -1,6 +1,6 @@
 package serviceTest;
 
-import com.lisitsin.entities.Writer;
+import com.lisitsin.models.Writer;
 import com.lisitsin.repositories.impl.mySqlImpl.MySQLWriterRepository;
 import com.lisitsin.services.WriterService;
 import com.lisitsin.services.impl.WriterServiceImpl;
@@ -9,10 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.mockito.BDDMockito.given;
 
@@ -31,7 +29,7 @@ public class WriterServiceTest {
     @Test
     void getWriterById() {
         given(writerRepository.getById(1L)).willReturn(
-                new Writer(1, "firstName", "lastName"));
+                new Writer(1L, "firstName", "lastName"));
         Writer writer = writerService.getById(1L);
         Assertions.assertEquals(new Writer(1L,"firstName", "lastName"), writer);
     }
@@ -43,8 +41,8 @@ public class WriterServiceTest {
 
         List<Writer> writers = writerService.getAll();
         Assertions.assertEquals(List.of(
-                new Writer(1, "firstName", "lastName", Collections.emptyList()),
-                new Writer(2, "SecondWriter", "SecondWriterLastname", Collections.emptyList())), writers);
+                new Writer(1L, "firstName", "lastName", Collections.emptyList()),
+                new Writer(2L, "SecondWriter", "SecondWriterLastname", Collections.emptyList())), writers);
     }
 
     @Test

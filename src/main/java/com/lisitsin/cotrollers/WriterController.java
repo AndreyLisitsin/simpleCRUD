@@ -1,11 +1,7 @@
 package com.lisitsin.cotrollers;
 
-import com.lisitsin.entities.Writer;
-import com.lisitsin.repositories.WriterRepository;
-import com.lisitsin.repositories.impl.jsonImpl.JsonWriterRepositoryImpl;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQLWriterRepository;
+import com.lisitsin.models.Writer;
 import com.lisitsin.services.WriterService;
-import com.lisitsin.services.impl.WriterServiceImpl;
 
 import java.util.List;
 
@@ -13,8 +9,8 @@ public class WriterController {
 
     private final WriterService writerService;
 
-    public WriterController(){
-        writerService = new WriterServiceImpl(new MySQLWriterRepository());
+    public WriterController(WriterService writerService) {
+        this.writerService = writerService;
     }
 
     public void deleteWriter(long id){

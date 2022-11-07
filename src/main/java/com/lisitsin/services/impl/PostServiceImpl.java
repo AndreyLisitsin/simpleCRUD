@@ -1,9 +1,7 @@
 package com.lisitsin.services.impl;
 
-import com.lisitsin.entities.Post;
-import com.lisitsin.repositories.LabelRepository;
+import com.lisitsin.models.Post;
 import com.lisitsin.repositories.PostRepository;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQlPostRepository;
 import com.lisitsin.services.PostService;
 
 import java.util.List;
@@ -12,8 +10,9 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
 
-    public PostServiceImpl(){
-        postRepository = new MySQlPostRepository();
+    public PostServiceImpl(PostRepository postRepository){
+
+        this.postRepository = postRepository;
     }
 
     @Override

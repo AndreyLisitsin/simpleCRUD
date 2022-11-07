@@ -1,8 +1,7 @@
 package com.lisitsin.services.impl;
 
-import com.lisitsin.entities.Label;
+import com.lisitsin.models.Label;
 import com.lisitsin.repositories.LabelRepository;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
 import com.lisitsin.services.LabelService;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public class LabelServiceImpl implements LabelService {
     LabelRepository labelRepository;
 
     public LabelServiceImpl(LabelRepository labelRepository){
-        this.labelRepository = new MySQLLabelRepository();
+        this.labelRepository = labelRepository;
     }
 
     @Override

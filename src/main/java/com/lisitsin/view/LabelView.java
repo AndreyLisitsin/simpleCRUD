@@ -1,7 +1,9 @@
 package com.lisitsin.view;
 
 import com.lisitsin.cotrollers.LabelController;
-import com.lisitsin.entities.Label;
+import com.lisitsin.models.Label;
+import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
+import com.lisitsin.services.impl.LabelServiceImpl;
 
 import java.util.Scanner;
 
@@ -10,8 +12,8 @@ public class LabelView {
     private LabelController labelController;
     private Scanner scanner;
 
-/*    public LabelView(){
-        labelController = new LabelController();
+    public LabelView(){
+        labelController = new LabelController(new LabelServiceImpl(new MySQLLabelRepository()));
         scanner = new Scanner(System.in);
     }
     public void handle(){
@@ -73,6 +75,6 @@ public class LabelView {
         long id = scanner.nextLong();
         labelController.deleteLabel(id);
         System.out.println("Post successfully deleted");
-    }*/
+    }
 }
 

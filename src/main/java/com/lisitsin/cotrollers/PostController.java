@@ -1,11 +1,8 @@
 package com.lisitsin.cotrollers;
 
-import com.lisitsin.entities.Label;
-import com.lisitsin.entities.Post;
-import com.lisitsin.repositories.PostRepository;
-import com.lisitsin.repositories.impl.jsonImpl.JsonPostRepositoryImpl;
+import com.lisitsin.models.Label;
+import com.lisitsin.models.Post;
 import com.lisitsin.services.PostService;
-import com.lisitsin.services.impl.PostServiceImpl;
 
 import java.util.Date;
 import java.util.List;
@@ -14,8 +11,8 @@ public class PostController {
 
     private final PostService postService;
     
-    public PostController(){
-        postService = new PostServiceImpl();
+    public PostController(PostService postService){
+        this.postService = postService;
     }
     
     public Post savePost(String content, List<Label> labels) {

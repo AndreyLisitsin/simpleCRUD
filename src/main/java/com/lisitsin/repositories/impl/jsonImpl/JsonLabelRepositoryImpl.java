@@ -3,48 +3,32 @@ package com.lisitsin.repositories.impl.jsonImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.lisitsin.entities.Label;
-import com.lisitsin.entities.Post;
+import com.lisitsin.models.Label;
 import com.lisitsin.repositories.LabelRepository;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class JsonLabelRepositoryImpl implements LabelRepository {
 
     private final String PATH = "src/main/resources/rep/label.json";
-    List<Label> labels;
-    public JsonLabelRepositoryImpl(){
-        labels = new ArrayList<>();
-    }
+
     @Override
     public Label getById(Long id) {
-        readListFromJson();
-        return labels.stream().filter(l -> l.getId() == id).findAny().get();
+        return readListFromJson().stream().filter(l -> l.getId() == id).findAny().orElse(null);
     }
 
     @Override
     public List<Label> getAll() {
-        readListFromJson();
-        return labels;
+        return readListFromJson();
     }
 
     @Override
     public Label save(Label label) {
-        readListFromJson();
-        if (labels.size() == 0){
-            label.setId(1);
-        }
-        else
-            label.setId(labels.stream()
-                    .map(Label::getId)
-                    .max((Comparator.naturalOrder()))
-                    .get()
-                    .intValue()+1);
+        List<Label> labels = readListFromJson();
+        label.setId(generateLabelId(labels));
         labels.add(label);
         writeListToJson(labels);
         return label;
@@ -52,21 +36,21 @@ public class JsonLabelRepositoryImpl implements LabelRepository {
 
     @Override
     public Label update(Label label) {
-        readListFromJson();
-        for (Label label1 : labels) {
+        List<Label> newLabels = readListFromJson();
+        for (Label label1 : newLabels) {
             if (label1.getId() == label.getId()){
                 label1.setName(label.getName());
             }
         }
-        writeListToJson(labels);
+        writeListToJson(newLabels);
         return label;
     }
 
     @Override
     public void deleteById(Long id) {
-        readListFromJson();
-        List<Label> labels1 = labels.stream().filter(l -> l.getId() != id).collect(Collectors.toList());
-        writeListToJson(labels1);
+        List<Label> labels = readListFromJson();
+        labels.removeIf(l -> l.getId() == id);
+        writeListToJson(labels);
 
     }
     private void writeListToJson(List<Label> list) {
@@ -81,7 +65,7 @@ public class JsonLabelRepositoryImpl implements LabelRepository {
         }
     }
 
-    private void readListFromJson() {
+    private List<Label> readListFromJson() {
         StringBuilder builder = new StringBuilder();
         String s ="";
         Gson gson = new Gson();
@@ -91,11 +75,15 @@ public class JsonLabelRepositoryImpl implements LabelRepository {
                 builder.append(s).append("\n");
             }
             Type type = new TypeToken<List<Label>>(){}.getType();
-            if (builder.length() != 0) {
-                labels = gson.fromJson(builder.toString(), type);
-            }
+                return gson.fromJson(builder.toString(), type);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error occurred: " + e.getMessage());
+            return Collections.emptyList();
         }
+    }
+
+    private Long generateLabelId(List<Label> labels) {
+        Label maxIdLabel = labels.stream().max(Comparator.comparing(Label::getId)).orElse(null);
+        return Objects.nonNull(maxIdLabel) ? maxIdLabel.getId() + 1 : 1L;
     }
 }
