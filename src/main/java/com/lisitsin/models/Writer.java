@@ -1,9 +1,10 @@
-package com.lisitsin.entities;
+package com.lisitsin.models;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Writer {
-    private long id;
+    private Long id;
     private String FirstName;
     private String LastName;
     private List<Post> posts;
@@ -19,11 +20,27 @@ public class Writer {
         LastName = lastName;
     }
 
+
+    public Writer(Long id, String firstName, String lastName, List<Post> posts) {
+        this.id = id;
+        FirstName = firstName;
+        LastName = lastName;
+        this.posts = posts;
+    }
+
+    public Writer(Long id, String firstName, String lastName) {
+        this.id = id;
+        FirstName = firstName;
+        LastName = lastName;
+    }
+
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,5 +76,18 @@ public class Writer {
                 ", LastName='" + LastName + '\'' +
                 ", posts=" + posts +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Writer writer = (Writer) o;
+        return id == writer.id && FirstName.equals(writer.FirstName) && LastName.equals(writer.LastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, FirstName, LastName);
     }
 }

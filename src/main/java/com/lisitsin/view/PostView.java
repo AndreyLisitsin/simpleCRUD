@@ -2,8 +2,13 @@ package com.lisitsin.view;
 
 import com.lisitsin.cotrollers.LabelController;
 import com.lisitsin.cotrollers.PostController;
-import com.lisitsin.entities.Label;
-import com.lisitsin.entities.Post;
+import com.lisitsin.models.Label;
+import com.lisitsin.models.Post;
+import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
+import com.lisitsin.repositories.impl.mySqlImpl.MySQlPostRepository;
+import com.lisitsin.services.impl.LabelServiceImpl;
+import com.lisitsin.services.impl.PostServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,10 +21,8 @@ public class PostView {
     private LabelController labelController;
     public PostView(){
         scanner = new Scanner(System.in);
-        postController = new PostController();
-        labelController = new LabelController();
-
-
+        postController = new PostController(new PostServiceImpl(new MySQlPostRepository()));
+        labelController = new LabelController(new LabelServiceImpl(new MySQLLabelRepository()));
     }
 
     public void handle(){

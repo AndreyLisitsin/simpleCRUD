@@ -1,75 +1,75 @@
-package com.lisitsin.repositories.impl;
+package com.lisitsin.repositories.impl.jsonImpl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.lisitsin.entities.Label;
-import com.lisitsin.entities.Post;
-import com.lisitsin.repositories.LabelRepository;
+import com.lisitsin.models.Post;
+import com.lisitsin.repositories.PostRepository;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JsonLabelRepositoryImpl implements LabelRepository {
+public class JsonPostRepositoryImpl implements PostRepository {
 
-    private final String PATH = "src/main/resources/rep/label.json";
-    List<Label> labels;
-    public JsonLabelRepositoryImpl(){
-        labels = new ArrayList<>();
-    }
+    private final String PATH = "src/main/resources/rep/post.json";
+    List<Post> posts = new ArrayList<>();
+
     @Override
-    public Label getById(Long id) {
+    public Post getById(Long id) {
         readListFromJson();
-        return labels.stream().filter(l -> l.getId() == id).findAny().get();
+        return posts.stream().filter(p -> p.getId() == id).findAny().get();
     }
 
     @Override
-    public List<Label> getAll() {
+    public List<Post> getAll() {
         readListFromJson();
-        return labels;
+        return posts;
     }
 
     @Override
-    public Label save(Label label) {
+    public Post save(Post post) {
         readListFromJson();
-        if (labels.size() == 0){
-            label.setId(1);
+        if (posts.size() == 0){
+            post.setId(1L);
         }
         else
-            label.setId(labels.stream()
-                    .map(Label::getId)
+            post.setId(posts.stream()
+                    .map(Post::getId)
                     .max((Comparator.naturalOrder()))
                     .get()
-                    .intValue()+1);
-        labels.add(label);
-        writeListToJson(labels);
-        return label;
+                    .intValue()+1L);
+        posts.add(post);
+        writeListToJson(posts);
+        return post;
     }
 
     @Override
-    public Label update(Label label) {
+    public Post update(Post post) {
         readListFromJson();
-        for (Label label1 : labels) {
-            if (label1.getId() == label.getId()){
-                label1.setName(label.getName());
+        for (Post post1 : posts) {
+            if (post1.getId() == post.getId()){
+                post1.setContent(post.getContent());
+                post1.setUpdated(new Date());
+                post1.setLabels(post.getLabels());
             }
         }
-        writeListToJson(labels);
-        return label;
+        writeListToJson(posts);
+        return post;
     }
 
     @Override
     public void deleteById(Long id) {
         readListFromJson();
-        List<Label> labels1 = labels.stream().filter(l -> l.getId() != id).collect(Collectors.toList());
-        writeListToJson(labels1);
+        List<Post> newPosts = posts.stream().filter(p -> p.getId() != id).collect(Collectors.toList());
+        writeListToJson(newPosts);
 
     }
-    private void writeListToJson(List<Label> list) {
+    private void writeListToJson(List<Post> list) {
         try(PrintWriter out = new PrintWriter(new FileWriter(PATH))){
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
@@ -90,9 +90,9 @@ public class JsonLabelRepositoryImpl implements LabelRepository {
             while ((s = reader.readLine())!= null){
                 builder.append(s).append("\n");
             }
-            Type type = new TypeToken<List<Label>>(){}.getType();
+            Type type = new TypeToken<List<Post>>(){}.getType();
             if (builder.length() != 0) {
-                labels = gson.fromJson(builder.toString(), type);
+                posts = gson.fromJson(builder.toString(), type);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

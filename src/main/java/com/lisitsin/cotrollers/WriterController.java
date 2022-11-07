@@ -1,38 +1,36 @@
 package com.lisitsin.cotrollers;
 
-import com.lisitsin.entities.Writer;
-import com.lisitsin.repositories.WriterRepository;
-import com.lisitsin.repositories.impl.JsonWriterRepositoryImpl;
+import com.lisitsin.models.Writer;
+import com.lisitsin.services.WriterService;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class WriterController {
 
-    WriterRepository writerRepository;
+    private final WriterService writerService;
 
-    public WriterController(){
-        writerRepository = new JsonWriterRepositoryImpl();
+    public WriterController(WriterService writerService) {
+        this.writerService = writerService;
     }
 
     public void deleteWriter(long id){
-            writerRepository.deleteById(id);
+        writerService.deleteById(id);
     }
 
     public void addWriter(Writer writer){
-        writerRepository.save(writer);
+        writerService.save(writer);
     }
 
     public Writer getWriterById(long id){
-        return writerRepository.getById(id);
+        return writerService.getById(id);
     }
 
     public Writer modifyWriter(Writer writer){
-        writerRepository.update(writer);
+        writerService.update(writer);
         return writer;
     }
 
     public List<Writer> getAllWriters(){
-        return writerRepository.getAll();
+        return writerService.getAll();
     }
 }

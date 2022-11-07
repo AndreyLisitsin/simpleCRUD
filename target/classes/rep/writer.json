@@ -2,17 +2,41 @@
   {
     "id": 2,
     "FirstName": "Roman",
-    "LastName": "Lisitsin",
+    "LastName": "Ershov",
     "posts": [
       {
         "id": 1,
-        "content": "First post",
-        "created": "Oct 8, 2022, 10:46:40 AM",
-        "updated": "Oct 8, 2022, 10:46:40 AM",
+        "content": "This is the first post",
+        "created": "Oct 12, 2022, 3:54:01 PM",
+        "updated": "Oct 12, 2022, 3:54:01 PM",
         "labels": [
           {
             "id": 1,
-            "name": "Title"
+            "name": "Movie"
+          },
+          {
+            "id": 2,
+            "name": "Animals"
+          },
+          {
+            "id": 4,
+            "name": "Sport"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "content": "this is updated second post",
+        "created": "Oct 12, 2022, 3:54:01 PM",
+        "updated": "Oct 12, 2022, 3:54:10 PM",
+        "labels": [
+          {
+            "id": 5,
+            "name": "Hobby"
+          },
+          {
+            "id": 6,
+            "name": "Programming"
           }
         ]
       }

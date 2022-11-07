@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    
+    <changeSet id="create-table-post" author="Andrey">
+        <createTable tableName="post">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="content" type="text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="created" type="date"/>
+            <column name="updated" type="data"/>
+            <column name="post_status" type="varchar(25)" defaultValue="under_review"/>
+            <column name="writer_id" type="int">
+                <constraints nullable="false" foreignKeyName="post_writer_id_writer_id" references="writer(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    
+    
+</databaseChangeLog>

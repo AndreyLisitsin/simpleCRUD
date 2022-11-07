@@ -1,37 +1,36 @@
 package com.lisitsin.cotrollers;
 
-import com.lisitsin.entities.Label;
-import com.lisitsin.repositories.LabelRepository;
-import com.lisitsin.repositories.impl.JsonLabelRepositoryImpl;
+import com.lisitsin.models.Label;
+import com.lisitsin.services.LabelService;
 
 import java.util.List;
 
 public class LabelController {
 
-    private final LabelRepository labelRepository;
+    private final LabelService labelService;
 
-    public LabelController(){
-        labelRepository = new JsonLabelRepositoryImpl();
+    public LabelController(LabelService labelService){
+        this.labelService = labelService ;
     }
 
     public Label save(String labelName){
         Label label = new Label(labelName);
-        return labelRepository.save(label);
+        return labelService.save(label);
     }
 
     public List<Label> getAll(){
-        return labelRepository.getAll();
+        return labelService.getAll();
     }
 
     public Label getById(Long id){
-        return labelRepository.getById(id);
+        return labelService.getById(id);
     }
 
     public Label updateLabel(Label label){
-        return labelRepository.update(label);
+        return labelService.update(label);
     }
 
     public void deleteLabel(Long id){
-        labelRepository.deleteById(id);
+        labelService.deleteById(id);
     }
 }

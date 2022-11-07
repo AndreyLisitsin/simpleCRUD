@@ -1,10 +1,12 @@
-package repTest;
+package repositoriyTest.repTestForJson;
 
 import com.lisitsin.cotrollers.LabelController;
-import com.lisitsin.entities.Label;
-import com.lisitsin.entities.Post;
+import com.lisitsin.models.Label;
+import com.lisitsin.models.Post;
 import com.lisitsin.repositories.PostRepository;
-import com.lisitsin.repositories.impl.JsonPostRepositoryImpl;
+import com.lisitsin.repositories.impl.jsonImpl.JsonLabelRepositoryImpl;
+import com.lisitsin.repositories.impl.jsonImpl.JsonPostRepositoryImpl;
+import com.lisitsin.services.impl.LabelServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -13,7 +15,7 @@ import java.util.List;
 public class PostRepositoryTest {
 
     PostRepository repository = new JsonPostRepositoryImpl();
-    LabelController labelController = new LabelController();
+    LabelController labelController = new LabelController(new LabelServiceImpl(new JsonLabelRepositoryImpl()));
 
     @Test
     void save1(){

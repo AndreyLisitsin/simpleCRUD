@@ -1,11 +1,9 @@
-package repTest;
+package repositoriyTest.repTestForJson;
 
-import com.lisitsin.entities.Label;
+import com.lisitsin.models.Label;
 import com.lisitsin.repositories.LabelRepository;
-import com.lisitsin.repositories.impl.JsonLabelRepositoryImpl;
+import com.lisitsin.repositories.impl.jsonImpl.JsonLabelRepositoryImpl;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Field;
 
 public class LabelRepositoryTest {
 
@@ -37,7 +35,7 @@ public class LabelRepositoryTest {
     void updateLabel(){
 
         Label label = new Label("Movie");
-        label.setId(1);
+        label.setId(1L);
         labelRepository.update(label);
     }
 

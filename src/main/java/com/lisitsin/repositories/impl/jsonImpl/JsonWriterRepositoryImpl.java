@@ -1,8 +1,8 @@
-package com.lisitsin.repositories.impl;
+package com.lisitsin.repositories.impl.jsonImpl;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.lisitsin.entities.Writer;
+import com.lisitsin.models.Writer;
 import com.lisitsin.repositories.WriterRepository;
 
 import java.io.*;
@@ -33,14 +33,14 @@ public class JsonWriterRepositoryImpl implements WriterRepository {
     public Writer save(Writer writer) {
         readListFromJson();
         if (list.size() == 0){
-            writer.setId(1);
+            writer.setId(1L);
         }
         else
             writer.setId(list.stream()
                     .map(Writer::getId)
                     .max((Comparator.naturalOrder()))
                     .get()
-                    .intValue()+1);
+                    .intValue()+1L);
         list.add(writer);
         writeListToJson(list);
         return writer;
