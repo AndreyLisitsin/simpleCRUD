@@ -19,11 +19,11 @@ public class WriterServiceTest {
     @Mock
     private MySQLWriterRepository writerRepository;
 
-    private final WriterService writerService;
+    private WriterService writerService;
 
     public WriterServiceTest() {
         MockitoAnnotations.openMocks(this);
-        writerService = new WriterServiceImpl(writerRepository);
+      //  writerService = new WriterServiceImpl(writerRepository);
     }
 
     @Test

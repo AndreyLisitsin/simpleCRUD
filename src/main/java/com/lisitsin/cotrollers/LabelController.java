@@ -1,17 +1,15 @@
 package com.lisitsin.cotrollers;
 
 import com.lisitsin.models.Label;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.services.LabelService;
 
 import java.util.List;
 
 public class LabelController {
 
-    private final LabelService labelService;
-
-    public LabelController(LabelService labelService){
-        this.labelService = labelService ;
-    }
+    @InjectByType
+    private LabelService labelService;
 
     public Label save(String labelName){
         Label label = new Label(labelName);

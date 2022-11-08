@@ -2,6 +2,7 @@ package com.lisitsin.view;
 
 import com.lisitsin.cotrollers.LabelController;
 import com.lisitsin.models.Label;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
 import com.lisitsin.services.impl.LabelServiceImpl;
 
@@ -12,8 +13,8 @@ public class LabelView {
     private LabelController labelController;
     private Scanner scanner;
 
+    @InjectByType
     public LabelView(){
-        labelController = new LabelController(new LabelServiceImpl(new MySQLLabelRepository()));
         scanner = new Scanner(System.in);
     }
     public void handle(){

@@ -14,9 +14,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JsonPostRepositoryImpl implements PostRepository {
+@Deprecated
+public class JsonPostRepositoryImpl  {
 
-    private final String PATH = "src/main/resources/rep/post.json";
+/*    private final String PATH = "src/main/resources/rep/post.json";
     List<Post> posts = new ArrayList<>();
 
     @Override
@@ -97,5 +98,5 @@ public class JsonPostRepositoryImpl implements PostRepository {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }

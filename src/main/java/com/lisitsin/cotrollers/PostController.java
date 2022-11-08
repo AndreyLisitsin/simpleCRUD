@@ -1,19 +1,19 @@
 package com.lisitsin.cotrollers;
 
+import com.lisitsin.configuration.ObjectFactory;
 import com.lisitsin.models.Label;
 import com.lisitsin.models.Post;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.services.PostService;
+
 
 import java.util.Date;
 import java.util.List;
 
 public class PostController {
 
-    private final PostService postService;
-    
-    public PostController(PostService postService){
-        this.postService = postService;
-    }
+    @InjectByType
+    private PostService postService;
     
     public Post savePost(String content, List<Label> labels) {
         Post post = new Post(content, new Date(), new Date(), labels);

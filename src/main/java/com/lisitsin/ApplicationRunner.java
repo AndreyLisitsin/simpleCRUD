@@ -1,5 +1,6 @@
 package com.lisitsin;
 
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.view.LabelView;
 import com.lisitsin.view.PostView;
 import com.lisitsin.view.WriterView;
@@ -7,6 +8,14 @@ import com.lisitsin.view.WriterView;
 import java.util.Scanner;
 
 public class ApplicationRunner {
+
+    @InjectByType
+    private LabelView labelView;
+
+    @InjectByType
+    private PostView po;
+    @InjectByType
+    private WriterView writerView;
 
     void start() {
         Scanner scanner = new Scanner(System.in);
@@ -21,15 +30,12 @@ public class ApplicationRunner {
             int i = scanner.nextInt();
             switch (i) {
                 case (1):
-                    WriterView writerView = new WriterView();
                     writerView.handleMessage();
                     break;
                 case (2):
-                    PostView po = new PostView();
                     po.handle();
                     break;
                 case (3):
-                    LabelView labelView = new LabelView();
                     labelView.handle();
                     break;
                 default:
@@ -37,5 +43,4 @@ public class ApplicationRunner {
             }
         }
     }
-
 }

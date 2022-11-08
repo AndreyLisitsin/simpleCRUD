@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class LabelRepositoryTest {
 
 
-    LabelRepository labelRepository = new JsonLabelRepositoryImpl();
+    LabelRepository labelRepository;
 
     @Test
     void saveLabel1(){

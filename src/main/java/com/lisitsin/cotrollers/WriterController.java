@@ -1,19 +1,17 @@
 package com.lisitsin.cotrollers;
 
 import com.lisitsin.models.Writer;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.services.WriterService;
 
 import java.util.List;
 
 public class WriterController {
 
-    private final WriterService writerService;
+    @InjectByType
+    private WriterService writerService;
 
-    public WriterController(WriterService writerService) {
-        this.writerService = writerService;
-    }
-
-    public void deleteWriter(long id){
+    public void deleteWriter(Long id){
         writerService.deleteById(id);
     }
 
@@ -21,13 +19,12 @@ public class WriterController {
         writerService.save(writer);
     }
 
-    public Writer getWriterById(long id){
+    public Writer getWriterById(Long id){
         return writerService.getById(id);
     }
 
     public Writer modifyWriter(Writer writer){
-        writerService.update(writer);
-        return writer;
+        return writerService.update(writer);
     }
 
     public List<Writer> getAllWriters(){

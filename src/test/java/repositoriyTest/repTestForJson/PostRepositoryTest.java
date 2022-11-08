@@ -14,8 +14,8 @@ import java.util.List;
 
 public class PostRepositoryTest {
 
-    PostRepository repository = new JsonPostRepositoryImpl();
-    LabelController labelController = new LabelController(new LabelServiceImpl(new JsonLabelRepositoryImpl()));
+    PostRepository repository;
+    LabelController labelController;
 
     @Test
     void save1(){

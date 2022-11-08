@@ -1,9 +1,11 @@
 package com.lisitsin.repositories.impl.mySqlImpl;
 
-import com.lisitsin.CreateConnection;
+import com.lisitsin.ConnectionService;
 import com.lisitsin.models.Label;
 import com.lisitsin.models.Post;
 import com.lisitsin.models.Writer;
+import com.lisitsin.myAnnotations.DBService;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.repositories.WriterRepository;
 import lombok.SneakyThrows;
 
@@ -14,13 +16,15 @@ import java.util.stream.Collectors;
 
 public class MySQLWriterRepository implements WriterRepository {
 
+    @InjectByType
+    ConnectionService service;
     @Override
     @SneakyThrows
     public Writer getById(Long id) {
         List<Post> posts = new ArrayList<>();
         String SQL ="SELECT writer.id AS writer_id, first_name AS f, last_name AS l, post.id AS post_id, updated, created, content" +
                 "  FROM writer LEFT JOIN post on writer.id = post.writer_id WHERE writer.id = ?";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -53,7 +57,7 @@ public class MySQLWriterRepository implements WriterRepository {
                 "left join post_label as pl on  p.id = pl.post_id\n" +
                 "left join label as l on  pl.label_id = l.id\n" +
                 "order by w.first_name;";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(SQL);
         while (resultSet.next()) {
@@ -98,7 +102,6 @@ public class MySQLWriterRepository implements WriterRepository {
                 }
             }
         }
-
         return writerList;
     }
 
@@ -106,7 +109,7 @@ public class MySQLWriterRepository implements WriterRepository {
     @SneakyThrows
     public Writer save(Writer writer) {
         String SQL = "INSERT INTO writer (first_name, last_name) VALUES (?, ?)";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, writer.getFirstName());
         statement.setString(2, writer.getLastName());
@@ -118,7 +121,7 @@ public class MySQLWriterRepository implements WriterRepository {
     @SneakyThrows
     public Writer update(Writer writer) {
         String SQL ="UPDATE writer SET first_name = ?, last_name =? WHERE id = ?";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, writer.getFirstName());
         statement.setString(2, writer.getLastName());
@@ -131,7 +134,7 @@ public class MySQLWriterRepository implements WriterRepository {
     @SneakyThrows
     public void deleteById(Long id) {
         String SQL ="DELETE FROM writer WHERE id = ?";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);
         statement.executeUpdate();

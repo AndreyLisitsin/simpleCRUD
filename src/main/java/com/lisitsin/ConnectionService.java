@@ -7,19 +7,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
-public class CreateConnection {
-    private static Properties properties;
-    private static String url;
-    private static String username;
-    private static String password;
+public class ConnectionService {
+    private Properties properties;
+    private String url;
+    private String username;
+    private String password;
+    private static String propertyPath ="src/main/resources/application.properties";
 
-    private CreateConnection instance = new CreateConnection();
-    private static String propertyPath ="src/main/resources/rep/mysql.properties";
+
     @SneakyThrows
-    private CreateConnection(){
-    }
-    @SneakyThrows
-    public static Connection getConnection(){
+    public Connection getConnection(){
         properties = new Properties();
         Class.forName("com.mysql.jdbc.Driver");
         properties.load(new FileReader(propertyPath));

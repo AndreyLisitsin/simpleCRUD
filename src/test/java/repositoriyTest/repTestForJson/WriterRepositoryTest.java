@@ -15,8 +15,8 @@ import java.util.List;
 
 public class WriterRepositoryTest {
 
-    WriterRepository writerRepository = new JsonWriterRepositoryImpl();
-    PostController postController = new PostController(new PostServiceImpl(new JsonPostRepositoryImpl()));
+    WriterRepository writerRepository;
+    PostController postController;
 
     @Test
     void saveWriter(){

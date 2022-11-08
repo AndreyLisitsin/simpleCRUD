@@ -24,7 +24,7 @@ public class PostServiceTest {
 
     public PostServiceTest(){
         MockitoAnnotations.openMocks(this);
-        postService = new PostServiceImpl(repository);
+     //   postService = new PostServiceImpl(repository);
     }
 
     @Test

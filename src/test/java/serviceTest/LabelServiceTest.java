@@ -23,7 +23,7 @@ public class LabelServiceTest {
 
     public LabelServiceTest() {
         MockitoAnnotations.openMocks(this);
-        this.service = new LabelServiceImpl(repository);
+      //  this.service = new LabelServiceImpl(repository);
     }
     @Test
     void getLabelById(){

@@ -1,24 +1,28 @@
 package com.lisitsin.repositories.impl.mySqlImpl;
 
-import com.lisitsin.CreateConnection;
+import com.lisitsin.ConnectionService;
 import com.lisitsin.models.Label;
 import com.lisitsin.models.Post;
+import com.lisitsin.myAnnotations.InjectByType;
+import com.lisitsin.myAnnotations.InjectProperty;
 import com.lisitsin.repositories.PostRepository;
 import lombok.SneakyThrows;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MySQlPostRepository implements PostRepository {
 
-    MySQLPostAndLabelsRepository postAndLabelsRepository = new MySQLPostAndLabelsRepository();
+    @InjectByType
+    ConnectionService service;
 
     @Override
     @SneakyThrows
     public Post getById(Long id) {
         String SQL = "SELECT * FROM POST WHERE id = ?";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery(SQL);
@@ -27,7 +31,11 @@ public class MySQlPostRepository implements PostRepository {
         Date created = resultSet.getDate("created");
         Date updated = resultSet.getDate("updated");
         long writer_id = resultSet.getLong("writer_id");
-        List<Label> labels = postAndLabelsRepository.getLabelsByPostID(id);
+
+
+
+        // inder review
+        List<Label> labels = Collections.emptyList();
         return new Post(idFromDataBase, content,created, updated, labels, writer_id);
     }
 
@@ -36,7 +44,7 @@ public class MySQlPostRepository implements PostRepository {
     public List<Post> getAll() {
         List<Post> posts = new ArrayList<>();
         String SQL = "SELECT * FROM labels ";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
@@ -45,7 +53,12 @@ public class MySQlPostRepository implements PostRepository {
             Date created = resultSet.getDate("created");
             Date updated = resultSet.getDate("updated");
             long writer_id = resultSet.getLong("writer_id");
-            List<Label> labels = postAndLabelsRepository.getLabelsByPostID(idFromDataBase);
+
+
+
+
+            // inder review
+            List<Label> labels = Collections.emptyList();
             posts.add(new Post(idFromDataBase, content,created, updated, labels, writer_id));
         }
         return posts;
@@ -55,7 +68,7 @@ public class MySQlPostRepository implements PostRepository {
     @SneakyThrows
     public Post save(Post post) {
         String SQL  = "INSERT INTO post (content, created, updated, writer_id) VALUES (?, ?, ?, ?)";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, post.getContent());
         statement.setDate(2, (Date) post.getCreated());
@@ -69,7 +82,7 @@ public class MySQlPostRepository implements PostRepository {
     @SneakyThrows
     public Post update(Post post) {
         String SQL = "UPDATE post SET content = ?, updated = ? WHERE id = ?";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, post.getContent());
         statement.setDate(2,(Date) post.getUpdated());
@@ -82,7 +95,7 @@ public class MySQlPostRepository implements PostRepository {
     @SneakyThrows
     public void deleteById(Long id) {
         String SQL = "DELETE FROM post WHERE id =?";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = service.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);
         statement.executeUpdate();

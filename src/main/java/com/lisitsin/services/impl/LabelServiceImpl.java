@@ -1,18 +1,18 @@
 package com.lisitsin.services.impl;
 
 import com.lisitsin.models.Label;
+import com.lisitsin.myAnnotations.DBService;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.repositories.LabelRepository;
+import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
 import com.lisitsin.services.LabelService;
 
 import java.util.List;
 
 public class LabelServiceImpl implements LabelService {
 
+    @InjectByType
     LabelRepository labelRepository;
-
-    public LabelServiceImpl(LabelRepository labelRepository){
-        this.labelRepository = labelRepository;
-    }
 
     @Override
     public Label getById(Long id) {

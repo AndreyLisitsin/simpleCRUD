@@ -11,9 +11,10 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class JsonLabelRepositoryImpl implements LabelRepository {
+@Deprecated
+public class JsonLabelRepositoryImpl {
 
-    private final String PATH = "src/main/resources/rep/label.json";
+/*    private final String PATH = "src/main/resources/rep/label.json";
 
     @Override
     public Label getById(Long id) {
@@ -85,5 +86,5 @@ public class JsonLabelRepositoryImpl implements LabelRepository {
     private Long generateLabelId(List<Label> labels) {
         Label maxIdLabel = labels.stream().max(Comparator.comparing(Label::getId)).orElse(null);
         return Objects.nonNull(maxIdLabel) ? maxIdLabel.getId() + 1 : 1L;
-    }
+    }*/
 }

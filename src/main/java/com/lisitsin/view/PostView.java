@@ -4,10 +4,7 @@ import com.lisitsin.cotrollers.LabelController;
 import com.lisitsin.cotrollers.PostController;
 import com.lisitsin.models.Label;
 import com.lisitsin.models.Post;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQlPostRepository;
-import com.lisitsin.services.impl.LabelServiceImpl;
-import com.lisitsin.services.impl.PostServiceImpl;
+import com.lisitsin.myAnnotations.InjectByType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +14,12 @@ import java.util.stream.Collectors;
 public class PostView {
 
     private Scanner scanner;
+    @InjectByType
     private PostController postController;
+    @InjectByType
     private LabelController labelController;
     public PostView(){
         scanner = new Scanner(System.in);
-        postController = new PostController(new PostServiceImpl(new MySQlPostRepository()));
-        labelController = new LabelController(new LabelServiceImpl(new MySQLLabelRepository()));
     }
 
     public void handle(){

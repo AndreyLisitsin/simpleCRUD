@@ -1,18 +1,19 @@
 package com.lisitsin.services.impl;
 
 import com.lisitsin.models.Writer;
+import com.lisitsin.myAnnotations.DBService;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.repositories.WriterRepository;
+import com.lisitsin.repositories.impl.mySqlImpl.MySQLWriterRepository;
 import com.lisitsin.services.WriterService;
 
 import java.util.List;
 
 public class WriterServiceImpl implements WriterService {
 
-    private final WriterRepository writerRepository;
+    @InjectByType
+    private WriterRepository writerRepository;
 
-    public WriterServiceImpl(WriterRepository writerRepository){
-        this.writerRepository = writerRepository;
-    }
     @Override
     public Writer getById(Long id) {
         return writerRepository.getById(id);

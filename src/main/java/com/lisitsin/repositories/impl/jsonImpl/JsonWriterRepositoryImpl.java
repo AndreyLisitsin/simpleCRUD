@@ -12,9 +12,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JsonWriterRepositoryImpl implements WriterRepository {
+@Deprecated
+public class JsonWriterRepositoryImpl {
 
-    private final String path = "src/main/resources/rep/writer.json";
+/*    private final String path = "src/main/resources/rep/writer.json";
     private List<Writer> list = new ArrayList<>();
 
     @Override
@@ -95,5 +96,5 @@ public class JsonWriterRepositoryImpl implements WriterRepository {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }

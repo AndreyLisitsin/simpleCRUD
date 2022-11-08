@@ -2,6 +2,7 @@ package com.lisitsin.view;
 
 import com.lisitsin.cotrollers.WriterController;
 import com.lisitsin.models.Writer;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.repositories.impl.mySqlImpl.MySQLWriterRepository;
 import com.lisitsin.services.impl.WriterServiceImpl;
 
@@ -10,12 +11,12 @@ import java.util.Scanner;
 
 public class WriterView {
     private Scanner scanner;
+
+    @InjectByType
     private WriterController writerController;
 
     public WriterView(){
-        writerController = new WriterController(new WriterServiceImpl(new MySQLWriterRepository()));
         scanner = new Scanner(System.in);
-
     }
     public void handleMessage(){
         System.out.println("Какую операцию вы хотите произвести? \n" +

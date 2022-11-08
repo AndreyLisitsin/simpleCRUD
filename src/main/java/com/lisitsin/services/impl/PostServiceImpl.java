@@ -1,19 +1,18 @@
 package com.lisitsin.services.impl;
 
 import com.lisitsin.models.Post;
+import com.lisitsin.myAnnotations.DBService;
+import com.lisitsin.myAnnotations.InjectByType;
 import com.lisitsin.repositories.PostRepository;
+import com.lisitsin.repositories.impl.mySqlImpl.MySQlPostRepository;
 import com.lisitsin.services.PostService;
 
 import java.util.List;
 
 public class PostServiceImpl implements PostService {
 
-    private final PostRepository postRepository;
-
-    public PostServiceImpl(PostRepository postRepository){
-
-        this.postRepository = postRepository;
-    }
+    @InjectByType
+    private PostRepository postRepository;
 
     @Override
     public Post getById(Long id) {
