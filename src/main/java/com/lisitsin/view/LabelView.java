@@ -2,7 +2,7 @@ package com.lisitsin.view;
 
 import com.lisitsin.cotrollers.LabelController;
 import com.lisitsin.models.Label;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
+import com.lisitsin.repositories.jdbcImpl.JDBCLabelRepository;
 import com.lisitsin.services.impl.LabelServiceImpl;
 
 import java.util.Scanner;
@@ -13,7 +13,7 @@ public class LabelView {
     private Scanner scanner;
 
     public LabelView(){
-        labelController = new LabelController(new LabelServiceImpl(new MySQLLabelRepository()));
+        labelController = new LabelController(new LabelServiceImpl(new JDBCLabelRepository()));
         scanner = new Scanner(System.in);
     }
     public void handle(){

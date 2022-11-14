@@ -1,4 +1,4 @@
-package com.lisitsin.repositories.impl.mySqlImpl;
+package com.lisitsin.repositories.jdbcImpl;
 
 import com.lisitsin.utils.ConnectionUtil;
 import com.lisitsin.models.Label;
@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLLabelRepository implements LabelRepository {
+public class JDBCLabelRepository implements LabelRepository {
 
     ConnectionUtil connectionUtil = ConnectionUtil.GetConnectionUtil();
     @Override

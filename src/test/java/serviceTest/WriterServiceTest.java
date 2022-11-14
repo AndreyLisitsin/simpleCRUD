@@ -1,7 +1,7 @@
 package serviceTest;
 
 import com.lisitsin.models.Writer;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQLWriterRepository;
+import com.lisitsin.repositories.jdbcImpl.JDBCWriterRepository;
 import com.lisitsin.services.WriterService;
 import com.lisitsin.services.impl.WriterServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +17,7 @@ import static org.mockito.BDDMockito.given;
 public class WriterServiceTest {
 
     @Mock
-    private MySQLWriterRepository writerRepository;
+    private JDBCWriterRepository writerRepository;
 
     private final WriterService writerService;
 

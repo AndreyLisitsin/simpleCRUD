@@ -1,4 +1,4 @@
-package com.lisitsin.repositories.impl.mySqlImpl;
+package com.lisitsin.repositories.jdbcImpl;
 
 import com.lisitsin.utils.ConnectionUtil;
 import com.lisitsin.models.Label;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MySQlPostRepository implements PostRepository {
+public class JDBCPostRepository implements PostRepository {
 
     ConnectionUtil connectionUtil = ConnectionUtil.GetConnectionUtil();
 

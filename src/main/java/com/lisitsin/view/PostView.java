@@ -4,8 +4,8 @@ import com.lisitsin.cotrollers.LabelController;
 import com.lisitsin.cotrollers.PostController;
 import com.lisitsin.models.Label;
 import com.lisitsin.models.Post;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQLLabelRepository;
-import com.lisitsin.repositories.impl.mySqlImpl.MySQlPostRepository;
+import com.lisitsin.repositories.jdbcImpl.JDBCLabelRepository;
+import com.lisitsin.repositories.jdbcImpl.JDBCPostRepository;
 import com.lisitsin.services.impl.LabelServiceImpl;
 import com.lisitsin.services.impl.PostServiceImpl;
 
@@ -21,8 +21,8 @@ public class PostView {
     private LabelController labelController;
     public PostView(){
         scanner = new Scanner(System.in);
-        postController = new PostController(new PostServiceImpl(new MySQlPostRepository()));
-        labelController = new LabelController(new LabelServiceImpl(new MySQLLabelRepository()));
+        postController = new PostController(new PostServiceImpl(new JDBCPostRepository()));
+        labelController = new LabelController(new LabelServiceImpl(new JDBCLabelRepository()));
     }
 
     public void handle(){

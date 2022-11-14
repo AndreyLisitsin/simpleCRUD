@@ -1,4 +1,4 @@
-package com.lisitsin.repositories.impl.mySqlImpl;
+package com.lisitsin.repositories.jdbcImpl;
 
 import com.lisitsin.utils.ConnectionUtil;
 import com.lisitsin.models.Label;
@@ -12,7 +12,7 @@ import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MySQLWriterRepository implements WriterRepository {
+public class JDBCWriterRepository implements WriterRepository {
 
     ConnectionUtil connectionUtil = ConnectionUtil.GetConnectionUtil();
 

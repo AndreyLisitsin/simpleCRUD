@@ -1,4 +1,4 @@
-package com.lisitsin.repositories.impl.jsonImpl;
+package com.lisitsin.repositories.jsonImpl;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
