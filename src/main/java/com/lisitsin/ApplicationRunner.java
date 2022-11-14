@@ -8,28 +8,27 @@ import java.util.Scanner;
 
 public class ApplicationRunner {
 
+    WriterView writerView = new WriterView();
+    PostView po = new PostView();
+    LabelView labelView = new LabelView();
+
     void start() {
         Scanner scanner = new Scanner(System.in);
-
         while (true) {
             System.out.println("С какой сущностью необходимо поработать? \n" +
                     "1 - Writer \n" +
                     "2 - Post \n" +
                     "3 - Label\n" +
                     "Другая цифра - выход из программы");
-
             int i = scanner.nextInt();
             switch (i) {
                 case (1):
-                    WriterView writerView = new WriterView();
                     writerView.handleMessage();
                     break;
                 case (2):
-                    PostView po = new PostView();
                     po.handle();
                     break;
                 case (3):
-                    LabelView labelView = new LabelView();
                     labelView.handle();
                     break;
                 default:
@@ -37,5 +36,4 @@ public class ApplicationRunner {
             }
         }
     }
-
 }

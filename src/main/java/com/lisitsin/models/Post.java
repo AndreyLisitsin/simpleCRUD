@@ -11,9 +11,9 @@ public class Post {
     private Date updated;
     private List<Label> labels;
 
-    private long writerId;
+    private Long writerId;
 
-    public Post(Long id, String content, Date created, Date updated, List<Label> labels, long writerId) {
+    public Post(Long id, String content, Date created, Date updated, List<Label> labels, Long writerId) {
         this.id = id;
         this.content = content;
         this.created = created;
@@ -34,6 +34,14 @@ public class Post {
         this.updated = new Date();
     }
 
+    public Post(Long id, String content, Date created, Date updated, Long writerId) {
+        this.id = id;
+        this.content = content;
+        this.created = created;
+        this.updated = updated;
+        this.writerId = writerId;
+    }
+
     public Post(Long id, String content, Date created, Date updated, List<Label> labels) {
         this.id = id;
         this.content = content;
@@ -42,7 +50,7 @@ public class Post {
         this.labels = labels;
     }
 
-    public void setId(Long id){
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -82,8 +90,12 @@ public class Post {
         this.labels = labels;
     }
 
-    public long getWriter_id() {
+    public Long getWriterId() {
         return writerId;
+    }
+
+    public void setWriterId(Long writerId) {
+        this.writerId = writerId;
     }
 
     @Override
@@ -102,12 +114,12 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return id == post.id && writerId == post.writerId && content.equals(post.content) && created.equals(post.created) && updated.equals(post.updated) && Objects.equals(labels, post.labels);
+        return id.equals(post.id) && content.equals(post.content) && created.equals(post.created) && updated.equals(post.updated) && writerId.equals(post.writerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, created, updated, labels, writerId);
+        return Objects.hash(id, content, created, updated, writerId);
     }
 }
 

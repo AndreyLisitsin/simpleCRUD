@@ -1,6 +1,6 @@
 package com.lisitsin.repositories.impl.mySqlImpl;
 
-import com.lisitsin.CreateConnection;
+import com.lisitsin.utils.ConnectionUtil;
 import com.lisitsin.models.Label;
 import com.lisitsin.models.Post;
 import com.lisitsin.models.Writer;
@@ -14,48 +14,77 @@ import java.util.stream.Collectors;
 
 public class MySQLWriterRepository implements WriterRepository {
 
+    ConnectionUtil connectionUtil = ConnectionUtil.GetConnectionUtil();
+
     @Override
     @SneakyThrows
     public Writer getById(Long id) {
-        List<Post> posts = new ArrayList<>();
+
         String SQL ="SELECT writer.id AS writer_id, first_name AS f, last_name AS l, post.id AS post_id, updated, created, content" +
                 "  FROM writer LEFT JOIN post on writer.id = post.writer_id WHERE writer.id = ?";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = connectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
-
-        String firstName = null;
-        String lastName = null;
-        long writerId = 0;
-        while (resultSet.next()) {
-            writerId = resultSet.getLong("writer_id");
-            firstName = resultSet.getString("f");
-            lastName = resultSet.getString("l");
-            long postId = resultSet.getLong("post_id");
-            Date created = resultSet.getDate("created");
-            Date updated = resultSet.getDate("updated");
-            String content = resultSet.getString("content");
-            posts.add(new Post(postId, content, created, updated, null ,writerId));
-        }
-
-        return new Writer(writerId, firstName, lastName, posts);
+        return getWriterList(resultSet).get(0);
     }
 
     @Override
     @SneakyThrows
     public List<Writer> getAll() {
-        Set<Writer> writers = new HashSet<>();
-        Map<Post,List<Label>> postsMap = new HashMap<>();
+
         String SQL = "select w.id as writer_id, first_name, last_name, p.id as post_id, content, created, updated,  l.id as label_id, label_name" +
                 " from writer as w\n" +
                 "left join post as p on w.id = p.writer_id\n" +
                 "left join post_label as pl on  p.id = pl.post_id\n" +
                 "left join label as l on  pl.label_id = l.id\n" +
                 "order by w.first_name;";
-        Connection connection = CreateConnection.getConnection();
-        Statement statement = connection.createStatement();
+        Connection connection = connectionUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL);
         ResultSet resultSet = statement.executeQuery(SQL);
+
+        return getWriterList(resultSet);
+    }
+
+    @Override
+    @SneakyThrows
+    public Writer save(Writer writer) {
+        String SQL = "INSERT INTO writer (first_name, last_name) VALUES (?, ?)";
+        Connection connection = connectionUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL);
+        statement.setString(1, writer.getFirstName());
+        statement.setString(2, writer.getLastName());
+        statement.executeUpdate();
+        return null;
+    }
+
+    @Override
+    @SneakyThrows
+    public Writer update(Writer writer) {
+        String SQL ="UPDATE writer SET first_name = ?, last_name =? WHERE id = ?";
+        Connection connection = connectionUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL);
+        statement.setString(1, writer.getFirstName());
+        statement.setString(2, writer.getLastName());
+        statement.setLong(3, writer.getId());
+        statement.executeUpdate();
+        return null;
+    }
+
+    @Override
+    @SneakyThrows
+    public void deleteById(Long id) {
+        String SQL ="DELETE FROM writer WHERE id = ?";
+        Connection connection = connectionUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL);
+        statement.setLong(1, id);
+        statement.executeUpdate();
+    }
+
+    private static List<Writer> getWriterList(ResultSet resultSet) throws SQLException {
+        Set<Writer> writers = new HashSet<>();
+        Map<Post,List<Label>> postsMap = new HashMap<>();
+
         while (resultSet.next()) {
             long writer_id = resultSet.getLong("writer_id");
             String first_name = resultSet.getString("first_name");
@@ -85,55 +114,19 @@ public class MySQLWriterRepository implements WriterRepository {
         List<Post> postList = postsMap.entrySet()
                 .stream()
                 .map(k -> {
-            Post post = k.getKey();
-            post.setLabels(k.getValue());
-            return post;})
+                    Post post = k.getKey();
+                    post.setLabels(k.getValue());
+                    return post;})
                 .filter(p -> p.getId() != 0)
                 .collect(Collectors.toList());
 
         for (Post post : postList) {
             for (Writer writer : writerList) {
-                if (writer.getId() == post.getWriter_id()){
+                if (writer.getId() == post.getWriterId()){
                     writer.getPosts().add(post);
                 }
             }
         }
-
         return writerList;
-    }
-
-    @Override
-    @SneakyThrows
-    public Writer save(Writer writer) {
-        String SQL = "INSERT INTO writer (first_name, last_name) VALUES (?, ?)";
-        Connection connection = CreateConnection.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL);
-        statement.setString(1, writer.getFirstName());
-        statement.setString(2, writer.getLastName());
-        statement.executeUpdate();
-        return null;
-    }
-
-    @Override
-    @SneakyThrows
-    public Writer update(Writer writer) {
-        String SQL ="UPDATE writer SET first_name = ?, last_name =? WHERE id = ?";
-        Connection connection = CreateConnection.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL);
-        statement.setString(1, writer.getFirstName());
-        statement.setString(2, writer.getLastName());
-        statement.setLong(3, writer.getId());
-        statement.executeUpdate();
-        return null;
-    }
-
-    @Override
-    @SneakyThrows
-    public void deleteById(Long id) {
-        String SQL ="DELETE FROM writer WHERE id = ?";
-        Connection connection = CreateConnection.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL);
-        statement.setLong(1, id);
-        statement.executeUpdate();
     }
 }

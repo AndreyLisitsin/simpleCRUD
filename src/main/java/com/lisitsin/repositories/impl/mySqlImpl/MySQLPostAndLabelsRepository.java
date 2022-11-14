@@ -1,6 +1,6 @@
 package com.lisitsin.repositories.impl.mySqlImpl;
 
-import com.lisitsin.CreateConnection;
+import com.lisitsin.utils.ConnectionUtil;
 import com.lisitsin.models.Label;
 import lombok.SneakyThrows;
 
@@ -14,6 +14,7 @@ public class MySQLPostAndLabelsRepository {
 
     private MySQlPostRepository postRepository;
     private MySQLLabelRepository labelRepository;
+    ConnectionUtil connectionUtil = ConnectionUtil.GetConnectionUtil();
 
     @SneakyThrows
     public MySQLPostAndLabelsRepository() {
@@ -25,7 +26,7 @@ public class MySQLPostAndLabelsRepository {
     List<Label> getLabelsByPostID(Long postId){
         List<Label> labels = new ArrayList<>();
         String SQL = "SELECT label_id FROM posts_labels WHERE post_id = ?";
-        Connection connection = CreateConnection.getConnection();
+        Connection connection = connectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, postId);
         ResultSet resultSet = statement.executeQuery();
@@ -34,7 +35,4 @@ public class MySQLPostAndLabelsRepository {
         }
         return labels;
     }
-
-
-
 }

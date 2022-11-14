@@ -1,4 +1,4 @@
-package com.lisitsin;
+package com.lisitsin.utils;
 
 import lombok.SneakyThrows;
 
@@ -7,19 +7,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
-public class CreateConnection {
+public class ConnectionUtil {
     private static Properties properties;
     private static String url;
     private static String username;
     private static String password;
 
-    private CreateConnection instance = new CreateConnection();
+    private static ConnectionUtil instance;
     private static String propertyPath ="src/main/resources/rep/mysql.properties";
+
+    private ConnectionUtil(){}
+
+
+
     @SneakyThrows
-    private CreateConnection(){
-    }
-    @SneakyThrows
-    public static Connection getConnection(){
+    public Connection getConnection(){
         properties = new Properties();
         Class.forName("com.mysql.jdbc.Driver");
         properties.load(new FileReader(propertyPath));
@@ -27,6 +29,13 @@ public class CreateConnection {
         username = properties.getProperty("username");
         password = properties.getProperty("password");
         return DriverManager.getConnection(url, username, password);
+    }
+
+    public static ConnectionUtil GetConnectionUtil(){
+        if (instance == null) {
+            instance = new ConnectionUtil();
+        }
+        return instance;
     }
 
 }
