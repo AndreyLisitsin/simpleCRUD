@@ -6,7 +6,7 @@ import com.lisitsin.view.WriterView;
 
 import java.util.Scanner;
 
-public class ApplicationRunner {
+public class MainView {
 
     WriterView writerView = new WriterView();
     PostView po = new PostView();
