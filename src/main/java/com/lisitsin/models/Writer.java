@@ -1,13 +1,30 @@
 package com.lisitsin.models;
 
+import lombok.Builder;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
+@Table(name = "writer", schema = "socialweb")
+@Builder
 public class Writer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "first_name")
     private String FirstName;
+    @Column(name = "last_name")
     private String LastName;
+    @OneToMany(mappedBy = "writer", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @LazyCollection(LazyCollectionOption.EXTRA)
     private List<Post> posts;
+
+    public Writer() {
+    }
 
     public Writer(String firstName, String lastName, List<Post> posts) {
         FirstName = firstName;
@@ -37,7 +54,6 @@ public class Writer {
     public long getId() {
         return id;
     }
-
 
 
     public void setId(Long id) {
@@ -74,7 +90,6 @@ public class Writer {
                 "id=" + id +
                 ", FirstName='" + FirstName + '\'' +
                 ", LastName='" + LastName + '\'' +
-                ", posts=" + posts +
                 '}';
     }
 

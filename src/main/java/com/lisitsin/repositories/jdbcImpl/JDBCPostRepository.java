@@ -19,7 +19,7 @@ public class JDBCPostRepository implements PostRepository {
 
     private List<Post> getListOfPosts(ResultSet resultSet) throws SQLException {
         Map<Post, List<Label>> postListMap = new HashMap<>();
-        while (resultSet.next()) {
+        /*while (resultSet.next()) {
             Long post_id = resultSet.getLong("post_id");
             String content = resultSet.getString("content");
             Date created = resultSet.getDate("created");
@@ -37,7 +37,7 @@ public class JDBCPostRepository implements PostRepository {
             else {
                 postListMap.put(post, List.of(label));
             }
-        }
+        }*/
         List<Post> posts = postListMap.entrySet().stream()
                 .map(e -> {
                     Post post = e.getKey();
@@ -78,16 +78,16 @@ public class JDBCPostRepository implements PostRepository {
     @Override
     @SneakyThrows
     public Post save(Post post) {
-        String SQL  = "INSERT INTO post (content, created, updated, writer_id) VALUES (?, ?, ?, ?)";
+        String SQL  = "INSERT INTO post (content, created, updated, writer_id) VALUES (?, ?, ?, ?);";
         Connection connection = connectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, post.getContent());
         statement.setDate(2, (Date) post.getCreated());
         statement.setDate(3, (Date) post.getUpdated());
-        statement.setLong(4, post.getWriterId());
+      //  statement.setLong(4, post.getWriterId());
         statement.executeUpdate();
 
-        SQL ="INSERT INTO post_label VALUES (?, ?)";
+        SQL ="INSERT INTO post_label VALUES (?, ?);";
         PreparedStatement statement1 = connection.prepareStatement(SQL);
         List<Label> labels = post.getLabels();
         for (Label label : labels) {
@@ -101,7 +101,7 @@ public class JDBCPostRepository implements PostRepository {
     @Override
     @SneakyThrows
     public Post update(Post post) {
-        String SQL = "UPDATE post SET content = ?, updated = ? WHERE id = ?";
+        String SQL = "UPDATE post SET content = ?, updated = ? WHERE id = ?;";
         Connection connection = connectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setString(1, post.getContent());
@@ -114,7 +114,7 @@ public class JDBCPostRepository implements PostRepository {
     @Override
     @SneakyThrows
     public void deleteById(Long id) {
-        String SQL = "DELETE FROM post WHERE id = ?";
+        String SQL = "DELETE FROM post WHERE id = ?;";
         Connection connection = connectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL);
         statement.setLong(1, id);

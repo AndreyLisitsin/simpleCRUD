@@ -1,5 +1,6 @@
 package com.lisitsin;
 
+import com.lisitsin.utils.HibernateSessionService;
 import com.lisitsin.view.LabelView;
 import com.lisitsin.view.PostView;
 import com.lisitsin.view.WriterView;

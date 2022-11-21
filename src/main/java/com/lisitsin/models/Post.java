@@ -1,25 +1,52 @@
 package com.lisitsin.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "post")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "content")
     private String content;
+    @Column(name = "created")
     private Date created;
+    @Column(name = "updated")
     private Date updated;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @JoinTable(
+            name = "post_label",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
     private List<Label> labels;
 
-    private Long writerId;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @JoinColumn(name = "writer_id")
+    private Writer writer;
 
-    public Post(Long id, String content, Date created, Date updated, List<Label> labels, Long writerId) {
-        this.id = id;
+
+    public Post() {
+    }
+
+    public Post(String content, Date created, Date updated, List<Label> labels, Writer writer) {
         this.content = content;
         this.created = created;
         this.updated = updated;
         this.labels = labels;
-        this.writerId = writerId;
+        this.writer = writer;
     }
 
     public Post(String content, Date created, Date updated, List<Label> labels) {
@@ -29,25 +56,21 @@ public class Post {
         this.labels = labels;
     }
 
-    public Post() {
-        this.created = new Date();
-        this.updated = new Date();
-    }
-
-    public Post(Long id, String content, Date created, Date updated, Long writerId) {
-        this.id = id;
-        this.content = content;
-        this.created = created;
-        this.updated = updated;
-        this.writerId = writerId;
-    }
-
     public Post(Long id, String content, Date created, Date updated, List<Label> labels) {
         this.id = id;
         this.content = content;
         this.created = created;
         this.updated = updated;
         this.labels = labels;
+    }
+
+    public Post(Long id, String content, Date created, Date updated, List<Label> labels, Writer writer) {
+        this.id = id;
+        this.content = content;
+        this.created = created;
+        this.updated = updated;
+        this.labels = labels;
+        this.writer = writer;
     }
 
     public void setId(Long id) {
@@ -90,12 +113,12 @@ public class Post {
         this.labels = labels;
     }
 
-    public Long getWriterId() {
-        return writerId;
+    public Writer getWriter() {
+        return writer;
     }
 
-    public void setWriterId(Long writerId) {
-        this.writerId = writerId;
+    public void setWriter(Writer writer) {
+        this.writer = writer;
     }
 
     @Override
@@ -105,7 +128,6 @@ public class Post {
                 ", content='" + content + '\'' +
                 ", created=" + created +
                 ", updated=" + updated +
-                ", labels=" + labels +
                 '}';
     }
 
@@ -114,12 +136,12 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return id.equals(post.id) && content.equals(post.content) && created.equals(post.created) && updated.equals(post.updated) && writerId.equals(post.writerId);
+        return Objects.equals(id, post.id) && Objects.equals(content, post.content) && Objects.equals(created, post.created) && Objects.equals(updated, post.updated) && Objects.equals(labels, post.labels) && Objects.equals(writer, post.writer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, created, updated, writerId);
+        return Objects.hash(id, content, created, updated, labels, writer);
     }
 }
 

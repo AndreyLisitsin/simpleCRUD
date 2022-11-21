@@ -85,7 +85,7 @@ public class JDBCWriterRepository implements WriterRepository {
         Set<Writer> writers = new HashSet<>();
         Map<Post,List<Label>> postsMap = new HashMap<>();
 
-        while (resultSet.next()) {
+        /*while (resultSet.next()) {
             long writer_id = resultSet.getLong("writer_id");
             String first_name = resultSet.getString("first_name");
             String last_name = resultSet.getString("last_name");
@@ -109,7 +109,7 @@ public class JDBCWriterRepository implements WriterRepository {
             else {
                 postsMap.put(post, List.of(label));
             }
-        }
+        }*/
         List<Writer> writerList = new ArrayList<>(writers);
         List<Post> postList = postsMap.entrySet()
                 .stream()
@@ -122,7 +122,7 @@ public class JDBCWriterRepository implements WriterRepository {
 
         for (Post post : postList) {
             for (Writer writer : writerList) {
-                if (writer.getId() == post.getWriterId()){
+                if (writer.getId() == post.getWriter().getId()){
                     writer.getPosts().add(post);
                 }
             }
